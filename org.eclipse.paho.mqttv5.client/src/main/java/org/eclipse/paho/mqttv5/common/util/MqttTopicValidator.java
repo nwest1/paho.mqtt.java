@@ -163,6 +163,11 @@ public class MqttTopicValidator {
 		MqttTopicValidator.validate(topicFilter, true, true);
 		MqttTopicValidator.validate(topicName, false, true);
 
+		// remove $share/groupname from $share/groupname/topic to topic
+		if (topicFilter.startsWith("$share/")) {
+			topicFilter = topicFilter.substring(topicFilter.indexOf("/", topicFilter.indexOf("/") + 1) + 1);
+		}
+
 		if (topicFilter.equals(topicName)) {
 			return true;
 		}
